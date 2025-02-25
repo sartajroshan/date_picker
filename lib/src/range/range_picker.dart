@@ -79,6 +79,7 @@ class RangeDatePicker extends StatefulWidget {
     this.centerLeadingDate = false,
     this.previousPageSemanticLabel,
     this.nextPageSemanticLabel,
+    this.onRangeStartSelected
   }) {
     assert(!minDate.isAfter(maxDate), "minDate can't be after maxDate");
   }
@@ -106,6 +107,9 @@ class RangeDatePicker extends StatefulWidget {
 
   /// Called when the user picks a range.
   final ValueChanged<DateTimeRange>? onRangeSelected;
+
+  /// Called when the user picks a start Date.
+  final ValueChanged<DateTime>? onRangeStartSelected;
 
   /// The earliest date the user is permitted to pick.
   ///
@@ -361,6 +365,7 @@ class _RangeDatePickerState extends State<RangeDatePicker> {
                 _selectedStartDate = date;
                 _selectedEndDate = null;
               });
+              widget.onRangeStartSelected?.call(date);
             },
           ),
         );
